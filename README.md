@@ -18,7 +18,11 @@
 
 <hr>
 
+### Architecture
 
+<img width="600" alt="archi" src="https://github.com/daily1313/concurrency/assets/88074556/1f753c89-645b-4ff5-8b4f-6a4936bab0a4">
+
+<hr>
 
 ### Git Convention
 

@@ -13,7 +13,7 @@
 
 <hr>
 
-### Project Build
+### Container execute
 ``sudo docker-compose -f docker-compose-dev.yml up``
 
 <hr>

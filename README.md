@@ -1,6 +1,6 @@
 ## Backend 
 
-### 팀원
+### 팀원 소개
 
 ### Backend
 - [김승범](https://github.com/daily1313)

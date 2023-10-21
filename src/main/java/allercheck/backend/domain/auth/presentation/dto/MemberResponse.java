@@ -14,7 +14,7 @@ public class MemberResponse {
     private String username;
     private String name;
 
-    public static MemberResponse toDto(Member member) {
+    public static MemberResponse toDto(final Member member) {
         return new MemberResponse(member.getId(), member.getUsername(), member.getName());
     }
 }

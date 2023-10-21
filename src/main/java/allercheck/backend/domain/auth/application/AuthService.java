@@ -35,6 +35,15 @@ public class AuthService {
         return MemberResponse.toDto(member);
     }
 
+    @Transactional
+    public TokenResponse signIn(final MemberSignInRequest memberSignInRequest) {
+        Member member = memberRepository.findByUsername(memberSignInRequest.getUsername())
+                .orElseThrow(MemberNotFoundException::new);
+        member.validateSignInInfo(memberSignInRequest.getUsername(), memberSignInRequest.getPassword());
+        member.validatePassword(member.getPassword());
+        return new TokenResponse(tokenProvider.createToken(String.valueOf(member.getId())));
+    }
+
     public Member extractMember(final String accessToken) {
         Long memberId = Long.valueOf(tokenProvider.getPayLoad(accessToken));
         validateMemberId(memberId);

@@ -19,7 +19,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(LoginFailureException.class)
     public ResponseEntity<?> loginFailureException() {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                .body("id, pw를 다시 확인해주세요.");
+                .body("email, password를 다시 확인해주세요.");
     }
 
 

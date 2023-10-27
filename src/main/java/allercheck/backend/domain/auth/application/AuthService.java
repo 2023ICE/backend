@@ -4,7 +4,7 @@ import allercheck.backend.domain.auth.application.dto.MemberSignInRequest;
 import allercheck.backend.domain.auth.application.dto.MemberSignUpRequest;
 import allercheck.backend.domain.auth.exception.PasswordAndCheckedPasswordNotEqualsException;
 import allercheck.backend.domain.auth.exception.UsernameAlreadyExistsException;
-import allercheck.backend.domain.member.domain.Member;
+import allercheck.backend.domain.member.entity.Member;
 import allercheck.backend.domain.member.exception.MemberNotFoundException;
 import allercheck.backend.domain.member.repository.MemberRepository;
 import allercheck.backend.global.jwt.TokenProvider;

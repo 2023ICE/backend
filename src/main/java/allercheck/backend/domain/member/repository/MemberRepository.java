@@ -1,6 +1,6 @@
 package allercheck.backend.domain.member.repository;
 
-import allercheck.backend.domain.member.domain.Member;
+import allercheck.backend.domain.member.entity.Member;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 

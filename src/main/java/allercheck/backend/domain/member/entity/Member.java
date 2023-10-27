@@ -1,4 +1,4 @@
-package allercheck.backend.domain.member.domain;
+package allercheck.backend.domain.member.entity;
 
 import allercheck.backend.domain.auth.exception.InvalidNameFormatException;
 import allercheck.backend.domain.auth.exception.InvalidPasswordFormatException;

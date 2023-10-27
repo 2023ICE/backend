@@ -1,6 +1,6 @@
 package allercheck.backend.domain.auth.presentation.dto;
 
-import allercheck.backend.domain.member.domain.Member;
+import allercheck.backend.domain.member.entity.Member;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

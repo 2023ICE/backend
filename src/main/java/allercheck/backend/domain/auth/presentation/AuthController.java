@@ -5,7 +5,7 @@ import allercheck.backend.domain.auth.presentation.dto.MemberResponse;
 import allercheck.backend.domain.auth.application.AuthService;
 import allercheck.backend.domain.auth.application.dto.MemberSignUpRequest;
 import allercheck.backend.domain.auth.presentation.dto.TokenResponse;
-import allercheck.backend.domain.member.domain.Member;
+import allercheck.backend.domain.member.entity.Member;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

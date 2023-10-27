@@ -1,5 +1,8 @@
 package allercheck.backend.domain.member.domain;
 
+import allercheck.backend.domain.auth.exception.InvalidNameFormatException;
+import allercheck.backend.domain.auth.exception.InvalidPasswordFormatException;
+import allercheck.backend.domain.auth.exception.InvalidUsernameFormatException;
 import allercheck.backend.domain.auth.exception.LoginFailureException;
 import allercheck.backend.global.common.BaseEntity;
 import jakarta.persistence.*;
@@ -30,6 +33,7 @@ public class Member extends BaseEntity {
     private String name;
 
     private Member(final String username, final String password, final String name) {
+        validateMember(username, password, name);
         this.username = username;
         this.password = password;
         this.name = name;
@@ -55,5 +59,27 @@ public class Member extends BaseEntity {
 
     public boolean validatePassword(final String inputPassword) {
         return this.password.equals(inputPassword);
+    }
+
+    public static void validateMember(final String username, final String password, final String name) {
+        validateUsernameFormat(username);
+    }
+
+    private static void validateUsernameFormat(final String username) {
+        if(username == null || !username.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+            throw new InvalidUsernameFormatException();
+        }
+    }
+
+    private static void validatePasswordFormat(final String password) {
+        if(password == null || !password.matches("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$")) {
+            throw new InvalidPasswordFormatException();
+        }
+    }
+
+    private static void validateNameFormat(final String name) {
+        if (name == null || !(name.length() >= 2 && name.length() <= 4)) {
+            throw new InvalidNameFormatException();
+        }
     }
 }

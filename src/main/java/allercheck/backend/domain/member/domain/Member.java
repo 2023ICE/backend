@@ -29,7 +29,7 @@ public class Member extends BaseEntity {
     @Column(nullable = false)
     private String name;
 
-    public Member(final String username, final String password, final String name) {
+    private Member(final String username, final String password, final String name) {
         this.username = username;
         this.password = password;
         this.name = name;

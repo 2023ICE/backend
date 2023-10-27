@@ -10,9 +10,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@RequestMapping("/api/auth")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/auth")
 public class AuthController {
 
     private final AuthService authService;

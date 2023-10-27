@@ -1,7 +1,5 @@
 package allercheck.backend.domain.auth.application;
 
-import allercheck.backend.domain.auth.presentation.dto.MemberResponse;
-import allercheck.backend.domain.auth.presentation.dto.TokenResponse;
 import allercheck.backend.domain.auth.application.dto.MemberSignInRequest;
 import allercheck.backend.domain.auth.application.dto.MemberSignUpRequest;
 import allercheck.backend.domain.auth.exception.PasswordAndCheckedPasswordNotEqualsException;
@@ -23,22 +21,21 @@ public class AuthService {
     private final MemberRepository memberRepository;
 
     @Transactional
-    public MemberResponse signUp(final MemberSignUpRequest memberSignUpRequest) {
+    public Member signUp(final MemberSignUpRequest memberSignUpRequest) {
         validateDuplicatedUsername(memberSignUpRequest);
         validateCheckedPassword(memberSignUpRequest.getPassword(), memberSignUpRequest.getCheckedPassword());
         Member member = Member.createMember(memberSignUpRequest.getUsername(),
                 memberSignUpRequest.getPassword(), memberSignUpRequest.getName());
-        memberRepository.save(member);
-        return MemberResponse.toDto(member);
+        return memberRepository.save(member);
     }
 
     @Transactional
-    public TokenResponse signIn(final MemberSignInRequest memberSignInRequest) {
+    public String signIn(final MemberSignInRequest memberSignInRequest) {
         Member member = memberRepository.findByUsername(memberSignInRequest.getUsername())
                 .orElseThrow(MemberNotFoundException::new);
         member.validateSignInInfo(memberSignInRequest.getUsername(), memberSignInRequest.getPassword());
         member.validatePassword(member.getPassword());
-        return new TokenResponse(tokenProvider.createToken(String.valueOf(member.getId())));
+        return tokenProvider.createToken(String.valueOf(member.getId()));
     }
 
     public Member extractMember(final String accessToken) {

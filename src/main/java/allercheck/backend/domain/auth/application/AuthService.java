@@ -27,7 +27,6 @@ public class AuthService {
 
     @Transactional
     public MemberResponse signUp(final MemberSignUpRequest memberSignUpRequest) {
-        validateSignUpInfo(memberSignUpRequest);
         validateDuplicatedUsername(memberSignUpRequest);
         validateCheckedPassword(memberSignUpRequest.getPassword(), memberSignUpRequest.getCheckedPassword());
         Member member = Member.createMember(memberSignUpRequest.getUsername(),
@@ -67,30 +66,6 @@ public class AuthService {
     public void validateMemberId(final Long memberId) {
         if(!memberRepository.existsById(memberId)) {
             throw new MemberNotFoundException();
-        }
-    }
-
-    private void validateSignUpInfo(final MemberSignUpRequest memberSignUpRequest) {
-        validateUsernameFormat(memberSignUpRequest.getUsername());
-        validatePasswordFormat(memberSignUpRequest.getPassword());
-        validateNameFormat(memberSignUpRequest.getName());
-    }
-
-    private void validateUsernameFormat(final String username) {
-        if(username == null || !username.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
-            throw new InvalidUsernameFormatException();
-        }
-    }
-
-    private void validatePasswordFormat(final String password) {
-        if(password == null || !password.matches("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$")) {
-            throw new InvalidPasswordFormatException();
-        }
-    }
-
-    private void validateNameFormat(final String name) {
-        if(name == null || !(name.length() >= 2 && name.length() <= 4)) {
-            throw new InvalidNameFormatException();
         }
     }
 }

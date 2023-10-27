@@ -31,11 +31,16 @@ public class AuthService {
 
     @Transactional
     public String signIn(final MemberSignInRequest memberSignInRequest) {
-        Member member = memberRepository.findByUsername(memberSignInRequest.getUsername())
-                .orElseThrow(MemberNotFoundException::new);
+        Member member = findMember(memberSignInRequest);
         member.validateSignInInfo(memberSignInRequest.getUsername(), memberSignInRequest.getPassword());
         member.validatePassword(member.getPassword());
         return tokenProvider.createToken(String.valueOf(member.getId()));
+    }
+
+    private Member findMember(MemberSignInRequest memberSignInRequest) {
+        Member member = memberRepository.findByUsername(memberSignInRequest.getUsername())
+                .orElseThrow(MemberNotFoundException::new);
+        return member;
     }
 
     public Member extractMember(final String accessToken) {

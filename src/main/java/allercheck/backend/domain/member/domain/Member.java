@@ -12,10 +12,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import net.minidev.json.annotate.JsonIgnore;
 
-@Entity
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Getter
+@Entity
 public class Member extends BaseEntity {
 
     @Id
@@ -63,6 +63,8 @@ public class Member extends BaseEntity {
 
     public static void validateMember(final String username, final String password, final String name) {
         validateUsernameFormat(username);
+        validatePasswordFormat(password);
+        validateNameFormat(name);
     }
 
     private static void validateUsernameFormat(final String username) {

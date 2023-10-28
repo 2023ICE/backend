@@ -6,6 +6,7 @@ import allercheck.backend.domain.auth.exception.InvalidUsernameFormatException;
 import allercheck.backend.domain.auth.exception.LoginFailureException;
 import allercheck.backend.domain.auth.exception.PasswordNotEqualsException;
 import allercheck.backend.domain.auth.exception.PresentPasswordNotEqualsException;
+import allercheck.backend.domain.auth.exception.UsernameNotEqualsException;
 import allercheck.backend.global.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -13,6 +14,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import net.minidev.json.annotate.JsonIgnore;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 @Getter
 @AllArgsConstructor
@@ -51,7 +53,7 @@ public class Member extends BaseEntity {
 
     public void validateSignInInfo(final String inputUsername, final String inputPassword) {
         if(!this.username.equals(inputUsername)) {
-            throw new PresentPasswordNotEqualsException();
+            throw new UsernameNotEqualsException();
         }
 
         if(!this.password.equals(inputPassword)) {

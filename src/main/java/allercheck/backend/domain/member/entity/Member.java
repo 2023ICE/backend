@@ -3,9 +3,7 @@ package allercheck.backend.domain.member.entity;
 import allercheck.backend.domain.auth.exception.InvalidNameFormatException;
 import allercheck.backend.domain.auth.exception.InvalidPasswordFormatException;
 import allercheck.backend.domain.auth.exception.InvalidUsernameFormatException;
-import allercheck.backend.domain.auth.exception.LoginFailureException;
 import allercheck.backend.domain.auth.exception.PasswordNotEqualsException;
-import allercheck.backend.domain.auth.exception.PresentPasswordNotEqualsException;
 import allercheck.backend.domain.auth.exception.UsernameNotEqualsException;
 import allercheck.backend.global.common.BaseEntity;
 import jakarta.persistence.*;
@@ -14,7 +12,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import net.minidev.json.annotate.JsonIgnore;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 @Getter
 @AllArgsConstructor

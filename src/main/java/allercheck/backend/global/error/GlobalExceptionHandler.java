@@ -64,4 +64,28 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND)
                 .body("해당 회원을 찾을 수 없습니다.");
     }
+
+    @ExceptionHandler(UsernameNotEqualsException.class)
+    public ResponseEntity<?> usernameNotEqualsException() {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body("email 정보가 일치하지 않습니다.");
+    }
+
+    @ExceptionHandler(PasswordNotEqualsException.class)
+    public ResponseEntity<?> passwordNotEqualsException() {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body("올바른 password를 입력해 주세요.");
+    }
+
+    @ExceptionHandler(PresentPasswordNotEqualsException.class)
+    public ResponseEntity<?> presentPasswordNotEqualsException() {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body("현재 password를 올바르게 입력해주세요.");
+    }
+
+    @ExceptionHandler(NewPasswordNotEqualsException.class)
+    public ResponseEntity<?> newPasswordNotEqualsException() {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body("새로운 password를 올바르게 입력해주세요.");
+    }
 }

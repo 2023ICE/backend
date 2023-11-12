@@ -2,6 +2,7 @@ package allercheck.backend.global.error;
 
 import allercheck.backend.domain.auth.exception.*;
 import allercheck.backend.domain.member.exception.MemberNotFoundException;
+import allercheck.backend.domain.openapi.exception.OpenApiConnectionFailureException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -21,7 +22,6 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body("email, password를 다시 확인해주세요.");
     }
-
 
     @ExceptionHandler(PasswordAndCheckedPasswordNotEqualsException.class)
     public ResponseEntity<?> passwordAndCheckedPasswordNotEqualsException() {
@@ -87,5 +87,11 @@ public class GlobalExceptionHandler {
     public ResponseEntity<?> newPasswordNotEqualsException() {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body("새로운 password를 올바르게 입력해주세요.");
+    }
+
+    @ExceptionHandler(OpenApiConnectionFailureException.class)
+    public ResponseEntity<?> openApiConnectionFailureException() {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body("opan api 연결에 실패했습니다.");
     }
 }

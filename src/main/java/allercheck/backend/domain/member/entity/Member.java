@@ -1,5 +1,7 @@
 package allercheck.backend.domain.member.entity;
 
+import allercheck.backend.domain.allergy.application.AllergyType;
+import allercheck.backend.domain.allergy.application.AllergyTypeSetConverter;
 import allercheck.backend.domain.auth.exception.InvalidNameFormatException;
 import allercheck.backend.domain.auth.exception.InvalidPasswordFormatException;
 import allercheck.backend.domain.auth.exception.InvalidUsernameFormatException;
@@ -12,6 +14,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import net.minidev.json.annotate.JsonIgnore;
+
+import java.util.EnumSet;
 
 @Getter
 @AllArgsConstructor
@@ -32,6 +36,9 @@ public class Member extends BaseEntity {
 
     @Column(nullable = false)
     private String name;
+
+    @Convert(converter = AllergyTypeSetConverter.class)
+    private EnumSet<AllergyType> allergies;
 
     private Member(final String username, final String password, final String name) {
         validateMember(username, password, name);
@@ -84,5 +91,10 @@ public class Member extends BaseEntity {
         if (name == null || !(name.length() >= 2 && name.length() <= 4)) {
             throw new InvalidNameFormatException();
         }
+    }
+
+    public EnumSet<AllergyType> changeAllergies(EnumSet<AllergyType> allergies) {
+        this.allergies = allergies;
+        return this.allergies;
     }
 }

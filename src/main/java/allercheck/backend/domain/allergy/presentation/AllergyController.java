@@ -3,7 +3,7 @@ package allercheck.backend.domain.allergy.presentation;
 import allercheck.backend.domain.allergy.application.AllergyService;
 import allercheck.backend.domain.allergy.application.dto.ChangeAllergiesRequest;
 import allercheck.backend.domain.allergy.presentation.dto.CheckAllergyResponse;
-import allercheck.backend.domain.allergy.presentation.dto.GetMyAllergiesResponse;
+import allercheck.backend.domain.allergy.presentation.dto.MyAllergiesResponse;
 import allercheck.backend.domain.member.entity.Member;
 import allercheck.backend.global.web.resolver.annotation.AuthMember;
 import lombok.RequiredArgsConstructor;
@@ -27,15 +27,15 @@ public class AllergyController {
     }
 
     @GetMapping
-    public ResponseEntity<GetMyAllergiesResponse> getMyAllergies(@AuthMember Member member) {
-        GetMyAllergiesResponse response = allergyService.getMyAllergies(member);
+    public ResponseEntity<MyAllergiesResponse> getMyAllergies(@AuthMember Member member) {
+        MyAllergiesResponse response = allergyService.getMyAllergies(member);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(response);
     }
 
     @PutMapping
-    public ResponseEntity<GetMyAllergiesResponse> changeAllergies(@AuthMember Member member, @RequestBody ChangeAllergiesRequest request) {
-        GetMyAllergiesResponse response = allergyService.changeAllergies(member, request);
+    public ResponseEntity<MyAllergiesResponse> changeAllergies(@AuthMember Member member, @RequestBody ChangeAllergiesRequest request) {
+        MyAllergiesResponse response = allergyService.changeAllergies(member, request);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(response);
     }

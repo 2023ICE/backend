@@ -6,7 +6,7 @@ import allercheck.backend.domain.allergy.entity.AllergyProperties;
 import allercheck.backend.domain.allergy.entity.AllergyType;
 import allercheck.backend.domain.allergy.presentation.dto.CheckAllergyResponse;
 import allercheck.backend.domain.allergy.presentation.dto.CheckRecipeResponse;
-import allercheck.backend.domain.allergy.presentation.dto.GetMyAllergiesResponse;
+import allercheck.backend.domain.allergy.presentation.dto.MyAllergiesResponse;
 import allercheck.backend.domain.member.entity.Member;
 import allercheck.backend.domain.member.exception.MemberNotFoundException;
 import allercheck.backend.domain.member.repository.MemberRepository;
@@ -37,22 +37,22 @@ public class AllergyService {
     }
 
     @Transactional
-    public GetMyAllergiesResponse changeAllergies(Member member, ChangeAllergiesRequest request) {
+    public MyAllergiesResponse changeAllergies(Member member, ChangeAllergiesRequest request) {
         Member currentMember = memberRepository.findByUsername(member.getUsername()).orElseThrow(MemberNotFoundException::new);
         EnumSet<AllergyType> newAllergies = EnumSet.noneOf(AllergyType.class);
         for (String allergy : request.getAllergies()) {
             newAllergies.add(AllergyType.nameOf(allergy));
         }
         EnumSet<AllergyType> changedAllergies = currentMember.changeAllergies(newAllergies);
-        return GetMyAllergiesResponse.toDto(
+        return MyAllergiesResponse.toDto(
                 changedAllergies.stream()
                         .map(AllergyType::getName)
                         .toList());
     }
 
     @Transactional(readOnly = true)
-    public GetMyAllergiesResponse getMyAllergies(Member member) {
-        return GetMyAllergiesResponse.toDto(
+    public MyAllergiesResponse getMyAllergies(Member member) {
+        return MyAllergiesResponse.toDto(
                 member.getAllergies()
                         .stream()
                         .map(AllergyType::getName)

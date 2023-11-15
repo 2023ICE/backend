@@ -10,6 +10,7 @@ import java.util.Arrays;
 @AllArgsConstructor
 @Getter
 public enum AllergyType {
+
     CRUSTACEAN("갑각류"),
     EGG("달걀"),
     FISH("생선"),

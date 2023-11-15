@@ -1,15 +1,14 @@
 package allercheck.backend.domain.allergy.application;
 
+import allercheck.backend.domain.allergy.entity.AllergyType;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 
 import java.util.Arrays;
 import java.util.EnumSet;
 
 @Converter
-@Slf4j
 public class AllergyTypeSetConverter implements AttributeConverter<EnumSet<AllergyType>, String> {
 
     @Override
@@ -19,9 +18,7 @@ public class AllergyTypeSetConverter implements AttributeConverter<EnumSet<Aller
         }
         StringBuilder sb = new StringBuilder();
         attribute.forEach(e -> sb.append(e.name()).append(","));
-        String result = sb.toString();
-        if(result.charAt(result.length() - 1) == ',') result = result.substring(0, result.length() - 1);
-        return result;
+        return sb.deleteCharAt(sb.length() - 1).toString();
     }
 
     @Override

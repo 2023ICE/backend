@@ -23,7 +23,9 @@ public class AllergyTypeSetConverter implements AttributeConverter<EnumSet<Aller
 
     @Override
     public EnumSet<AllergyType> convertToEntityAttribute(String dbData) {
-        if(dbData == null || dbData.isEmpty() || dbData.contains(".")) return EnumSet.noneOf(AllergyType.class);
+        if(dbData == null || dbData.isEmpty() || dbData.contains(".")) {
+            return EnumSet.noneOf(AllergyType.class);
+        }
         EnumSet<AllergyType> attribute = EnumSet.noneOf(AllergyType.class);
         String[] dbDataArray = StringUtils.trimAllWhitespace(dbData).toUpperCase().split(",");
         Arrays.stream(dbDataArray).forEach(e -> attribute.add(AllergyType.valueOf(e)));

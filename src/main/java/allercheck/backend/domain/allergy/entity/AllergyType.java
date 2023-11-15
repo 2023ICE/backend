@@ -12,7 +12,7 @@ import java.util.Arrays;
 public enum AllergyType {
 
     CRUSTACEAN("갑각류"),
-    EGG("달걀"),
+    EGG("난류"),
     FISH("생선"),
     MILK("유제품"),
     NUTS("견과류"),

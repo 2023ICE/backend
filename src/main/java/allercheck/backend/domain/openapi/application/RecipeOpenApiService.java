@@ -5,6 +5,7 @@ import allercheck.backend.domain.openapi.entity.Recipe;
 import allercheck.backend.domain.openapi.presentaion.RecipeOpenApiResponse;
 import allercheck.backend.domain.openapi.exception.OpenApiConnectionFailureException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class RecipeOpenApiService implements RecipeService {
@@ -48,7 +50,7 @@ public class RecipeOpenApiService implements RecipeService {
     private RecipeOpenApiResponse getRecipeOpenApiResponseByRecipeName(final int page, final String recipeName) {
         URI openApiRequestUri = buildOpenApiRequestUri(page, recipeName);
         ResponseEntity<RecipeOpenApiResponse> response = restTemplate.getForEntity(openApiRequestUri, RecipeOpenApiResponse.class);
-        checkRecipeResponse(response);
+        validateRecipeOpenApiResponse(response);
         return response.getBody();
     }
 
@@ -69,7 +71,7 @@ public class RecipeOpenApiService implements RecipeService {
                 .toUri();
     }
 
-    private void checkRecipeResponse(ResponseEntity<RecipeOpenApiResponse> response) {
+    private void validateRecipeOpenApiResponse(ResponseEntity<RecipeOpenApiResponse> response) {
         String responseCode = response.getBody().getCOOKRCP01().getRESULT().getCODE();
         if (!response.getStatusCode().is2xxSuccessful() || (!responseCode.equals(NO_RECIPE) && !responseCode.equals(SUCCESS))) {
             throw new OpenApiConnectionFailureException();

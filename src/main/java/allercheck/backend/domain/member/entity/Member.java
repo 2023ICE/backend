@@ -93,8 +93,7 @@ public class Member extends BaseEntity {
         }
     }
 
-    public EnumSet<AllergyType> changeAllergies(EnumSet<AllergyType> allergies) {
+    public void changeAllergies(EnumSet<AllergyType> allergies) {
         this.allergies = allergies;
-        return this.allergies;
     }
 }

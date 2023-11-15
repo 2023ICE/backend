@@ -37,17 +37,13 @@ public class AllergyService {
     }
 
     @Transactional
-    public MyAllergiesResponse changeAllergies(Member member, ChangeAllergiesRequest request) {
+    public void changeAllergies(Member member, ChangeAllergiesRequest request) {
         Member currentMember = memberRepository.findByUsername(member.getUsername()).orElseThrow(MemberNotFoundException::new);
         EnumSet<AllergyType> newAllergies = EnumSet.noneOf(AllergyType.class);
         for (String allergy : request.getAllergies()) {
             newAllergies.add(AllergyType.nameOf(allergy));
         }
-        EnumSet<AllergyType> changedAllergies = currentMember.changeAllergies(newAllergies);
-        return MyAllergiesResponse.toDto(
-                changedAllergies.stream()
-                        .map(AllergyType::getName)
-                        .toList());
+        currentMember.changeAllergies(newAllergies);
     }
 
     @Transactional(readOnly = true)

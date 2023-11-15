@@ -1,7 +1,6 @@
 package allercheck.backend.domain.allergy.presentation;
 
 import allercheck.backend.domain.allergy.application.AllergyService;
-import allercheck.backend.domain.allergy.application.AllergyType;
 import allercheck.backend.domain.allergy.application.dto.ChangeAllergiesRequest;
 import allercheck.backend.domain.allergy.presentation.dto.CheckAllergyResponse;
 import allercheck.backend.domain.allergy.presentation.dto.GetMyAllergiesResponse;
@@ -13,18 +12,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.EnumSet;
-
-@RequestMapping("/api/allergy")
 @RequiredArgsConstructor
+@RequestMapping("/api/allergy")
 @Controller
 public class AllergyController {
 
     private final AllergyService allergyService;
 
     @GetMapping("/check")
-    public ResponseEntity<CheckAllergyResponse> checkAllergy(@AuthMember Member member, int page, String recipeName) {
-        CheckAllergyResponse response = allergyService.checkAllergy(member, page, recipeName);
+    public ResponseEntity<CheckAllergyResponse> checkAllergyByRecipeName(@AuthMember Member member, int page, String recipeName) {
+        CheckAllergyResponse response = allergyService.checkAllergyByRecipeName(member, page, recipeName);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(response);
     }
@@ -36,11 +33,10 @@ public class AllergyController {
                 .body(response);
     }
 
-    @PatchMapping
+    @PutMapping
     public ResponseEntity<GetMyAllergiesResponse> changeAllergies(@AuthMember Member member, @RequestBody ChangeAllergiesRequest request) {
         GetMyAllergiesResponse response = allergyService.changeAllergies(member, request);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(response);
     }
-
 }

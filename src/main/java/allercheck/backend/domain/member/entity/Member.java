@@ -1,6 +1,6 @@
 package allercheck.backend.domain.member.entity;
 
-import allercheck.backend.domain.allergy.application.AllergyType;
+import allercheck.backend.domain.allergy.entity.AllergyType;
 import allercheck.backend.domain.allergy.application.AllergyTypeSetConverter;
 import allercheck.backend.domain.auth.exception.InvalidNameFormatException;
 import allercheck.backend.domain.auth.exception.InvalidPasswordFormatException;

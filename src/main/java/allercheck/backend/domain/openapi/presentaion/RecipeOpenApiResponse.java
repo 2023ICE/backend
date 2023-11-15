@@ -12,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class GetRecipeResponse {
+public class RecipeOpenApiResponse {
 
     @JsonProperty("COOKRCP01")
     private CookRcp01 COOKRCP01;

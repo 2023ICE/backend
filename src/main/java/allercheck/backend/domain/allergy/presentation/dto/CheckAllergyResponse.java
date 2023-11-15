@@ -5,18 +5,17 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class CheckAllergyResponse {
 
-   private List<CheckedFood> result = new ArrayList<>();
+   private List<CheckRecipeResponse> result;
 
-   public void addResult(CheckedFood checkedFood) {
-      result.add(checkedFood);
+   public static CheckAllergyResponse toDto(List<CheckRecipeResponse> checkedRecipeRespons) {
+      return new CheckAllergyResponse(checkedRecipeRespons);
    }
 }
 

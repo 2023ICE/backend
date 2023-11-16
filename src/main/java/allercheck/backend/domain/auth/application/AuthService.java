@@ -10,6 +10,7 @@ import allercheck.backend.domain.member.repository.MemberRepository;
 import allercheck.backend.global.jwt.TokenProvider;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,11 +31,11 @@ public class AuthService {
     }
 
     @Transactional
-    public String signIn(final MemberSignInRequest memberSignInRequest) {
+    public Pair<String, String> signIn(final MemberSignInRequest memberSignInRequest) {
         Member member = findMember(memberSignInRequest);
         member.validateSignInInfo(memberSignInRequest.getUsername(), memberSignInRequest.getPassword());
         member.validatePassword(member.getPassword());
-        return tokenProvider.createToken(String.valueOf(member.getId()));
+        return Pair.of(member.getName(), tokenProvider.createToken(String.valueOf(member.getId())));
     }
 
     private Member findMember(MemberSignInRequest memberSignInRequest) {

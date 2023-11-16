@@ -4,10 +4,11 @@ import allercheck.backend.domain.auth.application.dto.MemberSignInRequest;
 import allercheck.backend.domain.auth.presentation.dto.MemberResponse;
 import allercheck.backend.domain.auth.application.AuthService;
 import allercheck.backend.domain.auth.application.dto.MemberSignUpRequest;
-import allercheck.backend.domain.auth.presentation.dto.TokenResponse;
+import allercheck.backend.domain.auth.presentation.dto.SignInResponse;
 import allercheck.backend.domain.member.entity.Member;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.util.Pair;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,9 +28,9 @@ public class AuthController {
     }
 
     @PostMapping("/sign-in")
-    public ResponseEntity<TokenResponse> signIn(@Valid @RequestBody final MemberSignInRequest memberSignInRequest) {
-        String accessToken = authService.signIn(memberSignInRequest);
+    public ResponseEntity<SignInResponse> signIn(@Valid @RequestBody final MemberSignInRequest memberSignInRequest) {
+        Pair<String, String> nameAndAccessToken = authService.signIn(memberSignInRequest);
         return ResponseEntity.status(HttpStatus.OK)
-                .body(new TokenResponse(accessToken));
+                .body(new SignInResponse(nameAndAccessToken.getFirst(), nameAndAccessToken.getSecond()));
     }
 }

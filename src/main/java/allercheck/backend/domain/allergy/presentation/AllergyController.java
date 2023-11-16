@@ -34,8 +34,8 @@ public class AllergyController {
     }
 
     @PutMapping
-    public ResponseEntity<String> changeAllergies(@AuthMember Member member, @RequestBody ChangeAllergiesRequest request) {
+    public ResponseEntity<Void> changeAllergies(@AuthMember Member member, @RequestBody ChangeAllergiesRequest request) {
         allergyService.changeAllergies(member, request);
-        return ResponseEntity.ok("성공");
+        return ResponseEntity.ok().build();
     }
 }

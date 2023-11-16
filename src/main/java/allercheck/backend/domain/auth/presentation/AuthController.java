@@ -4,7 +4,7 @@ import allercheck.backend.domain.auth.application.dto.MemberSignInRequest;
 import allercheck.backend.domain.auth.presentation.dto.MemberResponse;
 import allercheck.backend.domain.auth.application.AuthService;
 import allercheck.backend.domain.auth.application.dto.MemberSignUpRequest;
-import allercheck.backend.domain.auth.presentation.dto.SignUpResponse;
+import allercheck.backend.domain.auth.presentation.dto.SignInResponse;
 import allercheck.backend.domain.member.entity.Member;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -28,9 +28,9 @@ public class AuthController {
     }
 
     @PostMapping("/sign-in")
-    public ResponseEntity<SignUpResponse> signIn(@Valid @RequestBody final MemberSignInRequest memberSignInRequest) {
+    public ResponseEntity<SignInResponse> signIn(@Valid @RequestBody final MemberSignInRequest memberSignInRequest) {
         Pair<String, String> nameAndAccessToken = authService.signIn(memberSignInRequest);
         return ResponseEntity.status(HttpStatus.OK)
-                .body(new SignUpResponse(nameAndAccessToken.getFirst(), nameAndAccessToken.getSecond()));
+                .body(new SignInResponse(nameAndAccessToken.getFirst(), nameAndAccessToken.getSecond()));
     }
 }

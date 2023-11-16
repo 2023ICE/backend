@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class SignUpResponse {
+public class SignInResponse {
 
     private String name;
     private String accessToken;

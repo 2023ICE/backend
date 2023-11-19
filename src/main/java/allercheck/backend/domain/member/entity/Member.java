@@ -5,7 +5,9 @@ import allercheck.backend.domain.allergy.application.AllergyTypeSetConverter;
 import allercheck.backend.domain.auth.exception.InvalidNameFormatException;
 import allercheck.backend.domain.auth.exception.InvalidPasswordFormatException;
 import allercheck.backend.domain.auth.exception.InvalidUsernameFormatException;
+import allercheck.backend.domain.auth.exception.NewPasswordNotEqualsException;
 import allercheck.backend.domain.auth.exception.PasswordNotEqualsException;
+import allercheck.backend.domain.auth.exception.PresentPasswordNotEqualsException;
 import allercheck.backend.domain.auth.exception.UsernameNotEqualsException;
 import allercheck.backend.global.common.BaseEntity;
 import jakarta.persistence.*;
@@ -95,5 +97,24 @@ public class Member extends BaseEntity {
 
     public void changeAllergies(EnumSet<AllergyType> allergies) {
         this.allergies = allergies;
+    }
+
+    public void changePassword(final String presentPassword, final String newPassword, final String checkedNewPassword) {
+        validatePassword(presentPassword, newPassword, checkedNewPassword);
+        this.password = newPassword;
+    }
+
+    private void validatePassword(final String presentPassword, final String newPassword, final String checkedNewPassword) {
+        if(!this.password.equals(presentPassword)) {
+            throw new PresentPasswordNotEqualsException();
+        }
+
+        if(!newPassword.equals(checkedNewPassword)) {
+            throw new NewPasswordNotEqualsException();
+        }
+
+        if(password == null || !password.matches("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$")) {
+            throw new InvalidPasswordFormatException();
+        }
     }
 }

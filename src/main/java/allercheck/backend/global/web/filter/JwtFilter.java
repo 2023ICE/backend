@@ -17,7 +17,7 @@ import java.io.IOException;
 @Slf4j
 public class JwtFilter implements Filter {
 
-    private static final String[] whiteList = { "/", "/api/auth/sign-in", "/api/auth/sign-up", "/css/*"};
+    private static final String[] whiteList = { "/", "/api/auth/sign-in", "/api/auth/sign-up", "/css/*", "/test"};
 
     private final TokenProvider tokenProvider;
 

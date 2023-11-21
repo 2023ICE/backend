@@ -32,7 +32,7 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(final InterceptorRegistry registry) {
         registry.addInterceptor(jwtInterceptor)
                 .addPathPatterns("/**")
-                .excludePathPatterns("/api/auth/sign-up", "/api/auth/sign-in");
+                .excludePathPatterns("/api/auth/sign-up", "/api/auth/sign-in", "/test");
     }
 
     @Bean

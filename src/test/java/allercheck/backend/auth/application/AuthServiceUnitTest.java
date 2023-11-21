@@ -28,6 +28,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.util.Pair;
 
 @SuppressWarnings("NonAsciiCharacters")
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
@@ -64,17 +65,18 @@ class AuthServiceUnitTest {
     @Test
     void 로그인을_한다() {
         // Given
-        String token = "token";
+        String accessToken = "accessToken";
         Member member = Member.createMember("kimsb7218@naver.com", "daily1313!", "김승범");
         MemberSignInRequest memberSignInRequest = new MemberSignInRequest(member.getUsername(), member.getPassword());
         given(memberRepository.findByUsername(anyString())).willReturn(Optional.of(member));
-        given(tokenProvider.createToken(anyString())).willReturn(token);
+        given(tokenProvider.createToken(anyString())).willReturn(accessToken);
 
         // When
-        String accessToken = authService.signIn(memberSignInRequest);
+        Pair<String, String> loginMemberInfo = authService.signIn(memberSignInRequest);
 
         // Then
-        assertThat(accessToken).isEqualTo(token);
+        assertThat(loginMemberInfo.getFirst()).isEqualTo(member.getName());
+        assertThat(loginMemberInfo.getSecond()).isEqualTo(accessToken);
     }
 
     @Test

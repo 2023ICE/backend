@@ -1,6 +1,7 @@
 package allercheck.backend.auth.presentation;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -21,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.util.Pair;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -71,12 +73,12 @@ class AuthControllerUnitTest {
     }
 
     @Test
-    void 로그인을_하면_엑세스_토큰을_반환한다() throws Exception {
+    void 로그인을_하면_회원_이름과_엑세스_토큰을_반환한다() throws Exception {
         //given
         String accessToken = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwiaWF0IjoxNjk4NDIyMDQwLCJleHAiOjE2OTg0NTgwNDB9.NYTXyO7DW8rl4WoZUDLUHARTleCl56vhlyc3Lm56XHw";
         MemberSignInRequest memberSignInRequest = new MemberSignInRequest("kimsb7218@naver.com", "daily1313!");
         String content = objectMapper.writeValueAsString(memberSignInRequest);
-        when(authService.signIn(any(MemberSignInRequest.class))).thenReturn(accessToken);
+        when(authService.signIn(any(MemberSignInRequest.class))).thenReturn(Pair.of(anyString(),accessToken));
 
         //when
         ResultActions resultAction = mockMvc.perform(post("/api/auth/sign-in")

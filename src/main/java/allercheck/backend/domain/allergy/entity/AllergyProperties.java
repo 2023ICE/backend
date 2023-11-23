@@ -9,7 +9,7 @@ import java.util.Map;
 
 
 @Getter
-@PropertySource("classpath:allergy.properties")
+@PropertySource(value = "classpath:allergy.properties", encoding = "UTF-8")
 @Component
 @Slf4j
 public class AllergyProperties {

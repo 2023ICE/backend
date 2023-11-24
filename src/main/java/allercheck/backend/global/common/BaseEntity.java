@@ -1,11 +1,11 @@
 package allercheck.backend.global.common;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
+import java.time.format.DateTimeFormatter;
 import lombok.Getter;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
@@ -15,11 +15,17 @@ import java.time.LocalDateTime;
 @Getter
 public abstract class BaseEntity {
 
-    @CreatedDate
-    @Column(nullable = false, updatable = false)
-    private LocalDateTime createdAt;
+    private String createdAt;
+    private String modifiedAt;
 
-    @LastModifiedDate
-    @Column(nullable = false)
-    private LocalDateTime modifiedAt;
+    @PrePersist
+    void onPrePersist() {
+        this.createdAt = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        this.modifiedAt = createdAt;
+    }
+
+    @PreUpdate
+    void onPreUpdate() {
+        this.modifiedAt = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    }
 }

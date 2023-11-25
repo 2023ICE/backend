@@ -13,6 +13,24 @@
 
 <hr>
 
+### Skills
+
+- Java 17
+- Spring data JPA
+- Spring boot 3.1.3
+- Spring web
+- Lombok
+- Validation
+- Jwt
+- Mysql 8.0
+- Junit5
+- AWS Lightsail, RDS
+- Nginx 
+- Docker-compose
+- Github Actions
+
+<hr>
+
 ### Container execute
 ``sudo docker-compose -f docker-compose-dev.yml up``
 

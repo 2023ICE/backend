@@ -27,11 +27,6 @@ public class JwtFilter implements Filter {
                          FilterChain chain) throws IOException, ServletException {
         log.info("call doFilter method >>>");
         HttpServletRequest httpRequest = (HttpServletRequest) request;
-
-        if (httpRequest.getMethod().equals("OPTIONS")) {
-            return;
-        }
-
         String requestUri = httpRequest.getRequestURI();
         HttpServletResponse httpResponse = (HttpServletResponse) response;
 

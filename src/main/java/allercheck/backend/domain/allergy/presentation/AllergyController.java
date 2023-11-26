@@ -33,7 +33,7 @@ public class AllergyController {
                 .body(response);
     }
 
-    @PutMapping
+    @PostMapping
     public ResponseEntity<Void> changeAllergies(@AuthMember Member member, @RequestBody ChangeAllergiesRequest request) {
         allergyService.changeAllergies(member, request);
         return ResponseEntity.ok().build();

@@ -45,7 +45,6 @@ public class JwtFilter implements Filter {
         String token = authorizationHeader.substring(7);
 
         try {
-            tokenProvider.validateToken(token);
             chain.doFilter(httpRequest, httpResponse);
         } catch (InvalidTokenException e) {
             httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, "유효하지 않은 토큰입니다.");

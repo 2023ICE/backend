@@ -7,14 +7,13 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.web.cors.CorsUtils;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 @Component
 @RequiredArgsConstructor
 @Slf4j
 public class JwtInterceptor implements HandlerInterceptor {
-
-    private static final String PREFLIGHT_OPTIONS_METHOD = "OPTIONS";
 
     private final AuthorizationExtractor authorizationExtractor;
     private final TokenProvider tokenProvider;
@@ -23,7 +22,7 @@ public class JwtInterceptor implements HandlerInterceptor {
     public boolean preHandle(final HttpServletRequest request,
                              final HttpServletResponse response,
                              final Object handler) throws Exception {
-        if(request.getMethod().equals(PREFLIGHT_OPTIONS_METHOD)) {
+        if(CorsUtils.isPreFlightRequest(request)) {
             return true;
         }
 

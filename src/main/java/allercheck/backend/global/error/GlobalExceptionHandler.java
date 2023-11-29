@@ -2,6 +2,8 @@ package allercheck.backend.global.error;
 
 import allercheck.backend.domain.auth.exception.*;
 import allercheck.backend.domain.member.exception.MemberNotFoundException;
+import allercheck.backend.domain.openapi.exception.NoMatchingRecipeException;
+import allercheck.backend.domain.openapi.exception.NoMoreRecipeException;
 import allercheck.backend.domain.openapi.exception.OpenApiConnectionFailureException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -93,5 +95,17 @@ public class GlobalExceptionHandler {
     public ResponseEntity<?> openApiConnectionFailureException() {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body("opan api 연결에 실패했습니다.");
+    }
+
+    @ExceptionHandler(NoMoreRecipeException.class)
+    public ResponseEntity<?> noMoreRecipeException() {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body("레시피를 가져올 수 있는 페이지를 넘었습니다.");
+    }
+
+    @ExceptionHandler(NoMatchingRecipeException.class)
+    public ResponseEntity<?> noMatchingRecipeException() {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body("검색어에 해당하는 레시피를 찾을 수 없습니다.");
     }
 }

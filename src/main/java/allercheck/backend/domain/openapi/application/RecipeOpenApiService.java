@@ -2,6 +2,8 @@ package allercheck.backend.domain.openapi.application;
 
 
 import allercheck.backend.domain.openapi.entity.Recipe;
+import allercheck.backend.domain.openapi.exception.NoMatchingRecipeException;
+import allercheck.backend.domain.openapi.exception.NoMoreRecipeException;
 import allercheck.backend.domain.openapi.presentaion.RecipeOpenApiResponse;
 import allercheck.backend.domain.openapi.exception.OpenApiConnectionFailureException;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +22,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-@Slf4j
 @RequiredArgsConstructor
 @Service
 public class RecipeOpenApiService implements RecipeService {
@@ -55,8 +56,15 @@ public class RecipeOpenApiService implements RecipeService {
     }
 
     private URI buildOpenApiRequestUri(int page, String recipeName) {
-        int startIdx = (page - 1) * PAGE_POLICY;
-        int endIdx = page * PAGE_POLICY;
+        int startIdx;
+        int endIdx;
+        if (page == 0) {
+            startIdx = 0;
+            endIdx = PAGE_POLICY;
+        } else {
+            startIdx = (page - 1) * PAGE_POLICY + 1;
+            endIdx = page * PAGE_POLICY;
+        }
         return UriComponentsBuilder
                 .fromUriString(RECIPE_OPENAPI_BASE_URL)
                 .path("/{secret}/{serviceName}/{fileType}/{startIdx}/{endIdx}/{recipeName}")
@@ -75,6 +83,12 @@ public class RecipeOpenApiService implements RecipeService {
         String responseCode = response.getBody().getCOOKRCP01().getRESULT().getCODE();
         if (!response.getStatusCode().is2xxSuccessful() || (!responseCode.equals(NO_RECIPE) && !responseCode.equals(SUCCESS))) {
             throw new OpenApiConnectionFailureException();
+        }
+        if (responseCode.equals(NO_RECIPE)) {
+            if (response.getBody().getCOOKRCP01().getTotal_count().equals("0")) {
+                throw new NoMatchingRecipeException();
+            }
+            throw new NoMoreRecipeException();
         }
     }
 

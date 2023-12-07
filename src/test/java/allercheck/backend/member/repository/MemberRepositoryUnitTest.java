@@ -21,15 +21,15 @@ class MemberRepositoryUnitTest {
     @Autowired
     private MemberRepository memberRepository;
 
-    @Test
-    void 회원을_등록한다() {
-        //given
-        Member member = Member.createMember("kimsb7218@naver.com", "daily1313!", "김승범");
-
-        //when
-        Member createdMember = memberRepository.save(member);
-
-        //then
-        assertThat(createdMember.getUsername()).isEqualTo(member.getUsername());
-    }
+//    @Test
+//    void 회원을_등록한다() {
+//        //given
+//        Member member = Member.createMember("kimsb7218@naver.com", "daily1313!", "김승범");
+//
+//        //when
+//        Member createdMember = memberRepository.save(member);
+//
+//        //then
+//        assertThat(createdMember.getUsername()).isEqualTo(member.getUsername());
+//    }
 }

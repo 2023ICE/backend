@@ -13,7 +13,7 @@ public class CorsFilter extends OncePerRequestFilter {
     protected void doFilterInternal(final HttpServletRequest request,
                                     final HttpServletResponse response,
                                     final FilterChain chain) throws ServletException, IOException {
-        response.setHeader("Access-Control-Allow-Origin", "https://allercheck-frontend-hyunyeee.vercel.app");
+        response.setHeader("Access-Control-Allow-Origin", "https://allercheck-frontend-kkwak4vvt-hyunyeee.vercel.app");
         response.setHeader("Access-Control-Allow-Credentials", "true");
         response.setHeader("Access-Control-Allow-Methods", "GET, HEAD, POST, PUT, DELETE, OPTIONS, TRACE, PATCH");
         response.setHeader("Access-Control-Max-Age", "3600");

@@ -10,7 +10,8 @@ import org.springframework.web.filter.OncePerRequestFilter;
 public class CorsFilter extends OncePerRequestFilter {
 
     @Override
-    protected void doFilterInternal(final HttpServletRequest request, final HttpServletResponse response,
+    protected void doFilterInternal(final HttpServletRequest request,
+                                    final HttpServletResponse response,
                                     final FilterChain chain) throws ServletException, IOException {
         response.setHeader("Access-Control-Allow-Origin", "https://allercheck-frontend-hyunyeee.vercel.app");
         response.setHeader("Access-Control-Allow-Credentials", "true");

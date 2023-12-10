@@ -5,6 +5,7 @@ services:
     image: ${APP_IMAGE}  # TODO 배포 시 .env 추가
     build: .
     restart: always
+    # platform: linux/amd64 # m1 환경에서만
     ports:
       - "${APP_LOCAL_PORT}:${APP_SERVER_PORT}"
     environment:

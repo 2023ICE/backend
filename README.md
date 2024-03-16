@@ -38,7 +38,7 @@
 
 ### Architecture
 
-<img width="600" alt="archi" src="https://github.com/daily1313/concurrency/assets/88074556/1f753c89-645b-4ff5-8b4f-6a4936bab0a4">
+<img width="537" alt="Allercheck" src="https://github.com/2023ICE/backend/assets/90890216/26a34641-c314-4c3f-bd41-d81f59848530">
 
 <hr>
 

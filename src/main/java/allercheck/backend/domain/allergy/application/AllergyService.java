@@ -1,6 +1,5 @@
 package allercheck.backend.domain.allergy.application;
 
-
 import allercheck.backend.domain.allergy.application.dto.ChangeAllergiesRequest;
 import allercheck.backend.domain.allergy.entity.AllergyProperties;
 import allercheck.backend.domain.allergy.entity.AllergyType;
@@ -43,6 +42,7 @@ public class AllergyService {
         for (String allergy : request.getAllergies()) {
             newAllergies.add(AllergyType.nameOf(allergy));
         }
+
         currentMember.changeAllergies(newAllergies);
     }
 
@@ -55,7 +55,7 @@ public class AllergyService {
                         .toList());
     }
 
-    private CheckRecipeResponse checkRecipe(EnumSet<AllergyType> memberAllergies, Recipe recipe) {
+    public CheckRecipeResponse checkRecipe(EnumSet<AllergyType> memberAllergies, Recipe recipe) {
         Pair<Set<String>, Set<String>> detectedIngredientsAndCauses = detectIngredientsAndCauses(memberAllergies, recipe.getIngredients());
         return CheckRecipeResponse.toDto(
                 recipe.getName(),
@@ -64,19 +64,21 @@ public class AllergyService {
                 detectedIngredientsAndCauses.getSecond());
     }
 
-    private Pair<Set<String>, Set<String>> detectIngredientsAndCauses(EnumSet<AllergyType> memberAllergies, Set<String> ingredients) {
+    public Pair<Set<String>, Set<String>> detectIngredientsAndCauses(EnumSet<AllergyType> memberAllergies, Set<String> ingredients) {
         Set<String> detectedIngredients = new LinkedHashSet<>();
         Set<String> causes = new LinkedHashSet<>();
+
         for (String ingredient : ingredients) {
             if (canCauseAllergy(memberAllergies, ingredient)) {
                 detectedIngredients.add(ingredient);
                 causes.add(allergyProperties.getAllergyByIngredient(ingredient).getName());
             }
         }
+
         return Pair.of(detectedIngredients, causes);
     }
 
-    private boolean canCauseAllergy(EnumSet<AllergyType> memberAllergies, String ingredient) {
+    public boolean canCauseAllergy(EnumSet<AllergyType> memberAllergies, String ingredient) {
         if (allergyProperties.isAllergenicIngredient(ingredient)) {
             return memberAllergies.contains(allergyProperties.getAllergyByIngredient(ingredient));
         }
